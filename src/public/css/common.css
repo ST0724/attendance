@@ -1,0 +1,35 @@
+.header {
+    background: #000;
+}
+
+.header__inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__logo {
+    padding: 15px;
+}
+
+.header__nav {
+    display: flex;
+    margin-right: 30px;
+}
+
+.logout_form {
+    margin: auto;
+}
+
+.header__nav--button {
+    margin-right: 20px;
+    color: #fff;
+    border: none;
+    background-color: #000;
+    font-size: 18px;
+}
+
+.header__logo--image{
+    width: 100%;
+}
+
