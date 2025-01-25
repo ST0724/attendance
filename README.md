@@ -19,9 +19,9 @@ Laravel環境構築
 + Laravel 8.83.8
 
 ## テストアカウント
-name:管理者
-email:admin@example.com
-password:password
+name:管理者  
+email:admin@example.com  
+password:password  
 
 ## ER図
 [ER図]

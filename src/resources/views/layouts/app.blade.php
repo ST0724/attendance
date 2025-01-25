@@ -20,11 +20,21 @@
         <img class="header__logo--image" src="{{ asset('storage/logo.svg') }}" alt="画像">
       </a>
 
-      @if(Auth::check())
+      @if(Auth::guard('web')->check())
         <div class="header__nav">
           <button class="header__nav--button" onclick="location.href='/attendance'">勤怠</button>
           <button class="header__nav--button" onclick="location.href='/attendance'">勤怠一覧</button>
           <button class="header__nav--button" onclick="location.href='/attendance'">申請</button>
+          <form class="logout_form" action="/logout" method="post">
+            @csrf
+            <button class="header__nav--button">ログアウト</button>
+          </form>
+        </div>
+      @elseif(Auth::guard('admin')->check())
+        <div class="header__nav">
+          <button class="header__nav--button" onclick="location.href='/attendance'">勤怠一覧</button>
+          <button class="header__nav--button" onclick="location.href='/attendance'">スタッフ一覧</button>
+          <button class="header__nav--button" onclick="location.href='/attendance'">申請一覧</button>
           <form class="logout_form" action="/logout" method="post">
             @csrf
             <button class="header__nav--button">ログアウト</button>
