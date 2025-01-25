@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-勤怠画面だよ
+管理者勤怠一覧画面だよ
 @endsection

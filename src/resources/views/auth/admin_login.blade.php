@@ -6,9 +6,9 @@
 
 @section('content')
     <div class="content">
-        <h2 class="content__title">ログイン</h2>
+        <h2 class="content__title">管理者ログイン</h2>
 
-        <form class="form" action="/login" method="post">
+        <form class="form" action="/admin/login" method="post">
             @csrf
             <div class="form__group">
                 <div class="form__group--title">
@@ -39,12 +39,8 @@
             </div>
             
             <div class="form__button">
-                <button class="form__button--submit" type="submit">ログインする</button>
+                <button class="form__button--submit" type="submit">管理者ログインする</button>
             </div>
         </form>
-
-        <div class="link__register">
-            <a href="/register">会員登録はこちら</a>
-        </div>
     </div>
 @endsection
