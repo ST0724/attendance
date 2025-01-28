@@ -1,4 +1,4 @@
-# coachtechフリマ
+# coachtech勤怠管理アプリ
 
 ## 環境構築
 Dockerビルド
@@ -17,6 +17,11 @@ Laravel環境構築
 
 ## 使用技術(実行環境)
 + Laravel 8.83.8
+
+## テストアカウント
+name:管理者  
+email:admin@example.com  
+password:password  
 
 ## ER図
 [ER図]

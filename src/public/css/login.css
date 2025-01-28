@@ -1,0 +1,58 @@
+.content {
+    margin: 0 auto;
+    padding: 30px 15px;
+    max-width: 1230px;
+}
+
+.content__title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.form__group {
+    width: 100%;
+}
+
+.form__error {
+    height: 20px;
+    color: #ff0000;
+    text-align: left;
+}
+
+.form__group--input {
+    width: 100%;
+}
+
+.form__group--input input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    appearance: none;
+}
+
+.form__button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.form__button--submit {
+    padding: 10px;
+    width: 30%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.link__register {
+    text-align: center;
+    margin-top: 30px;
+}
