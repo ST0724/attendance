@@ -1,0 +1,17 @@
+.content {
+    margin:50px auto;
+    width: 80%;
+}
+
+.status{
+    text-align: center;
+}
+
+.status__label {
+    text-align: center;
+    padding: 5px 15px;
+    color: #696969;
+    background-color: #C8C8C8;
+    border-radius: 30px;
+    font-size: 18px;
+}

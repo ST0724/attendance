@@ -19,9 +19,15 @@ Laravel環境構築
 + Laravel 8.83.8
 
 ## テストアカウント
+### 管理ログイン用
 name:管理者  
 email:admin@example.com  
 password:password  
+### 一般ログイン用
+name:テストユーザー1   
+email:test1@example.com  
+password:test_user1  
+※一般ユーザーは会員登録画面から手動で作成しても問題ありません。
 
 ## ER図
 [ER図]
