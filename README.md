@@ -33,3 +33,7 @@ password:test_user1
 
 ## URL
 開発環境：[http://localhost/](http://localhost/)
+
+## 備考
+php artisan users:reset-status  
+上記をphpコンテナ内で実行することで、全ての一般ユーザーのステータスを『勤務外』に変更します。
