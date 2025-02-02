@@ -27,7 +27,6 @@ password:password
 name:テストユーザー1   
 email:test1@example.com  
 password:test_user1  
-※一般ユーザーは会員登録画面から手動で作成しても問題ありません。
 
 ## ER図
 [ER図]
