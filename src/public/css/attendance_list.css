@@ -1,0 +1,46 @@
+body {
+    background-color: #F0EFF2;
+}
+
+.content {
+    width: 70%;
+    margin: 50px auto;
+}
+
+.content-title{
+    border-left: solid 8px #000;
+    padding-left: 10px;
+}
+
+.month{
+    text-align: center;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.month__input{
+    font-size: 20px;
+}
+
+.record-table{
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.record-teble__inner {
+    width: 100%;
+}
+
+.record-table__row{
+    width: 100%;
+    border-bottom: solid 1px #E1E1E1;
+    color: #737373;
+    text-align: center;
+}
+
+.black{
+    color: #000;
+}

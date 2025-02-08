@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AttendanceRecord;
 use App\Models\BreakRecord;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -21,9 +22,7 @@ class UserController extends Controller
     public function attendanceStore(Request $request){
         $now = Carbon::now();
         $date = Carbon::now()->toDateString();
-        $time = Carbon::now()->toTimeString();
-
-        //dd($request);
+        $time = Carbon::now()->format('H:i');
 
         switch ($request->input('action')) {
             case 'clock_in':
@@ -57,8 +56,52 @@ class UserController extends Controller
                 Auth::user()->update(['status_id' => '2']);
                 break;
         }
-
         return redirect('/attendance');
-        
+    }
+
+
+    public function attendanceList(){
+        $now = Carbon::now();
+        $start_date = $now->copy()->startOfMonth();
+        $end_date = $now->copy()->endOfMonth();
+
+        $records = AttendanceRecord::with('breakRecords')
+        ->whereBetween('date', [$start_date, $end_date])
+        ->where('user_id', Auth::id())
+        ->orderBy('date')
+        ->get()
+        ->map(function ($record) {
+            if ($record->clock_in && $record->clock_out) {
+                $clock_in = Carbon::parse($record->clock_in);
+                $clock_out = Carbon::parse($record->clock_out);
+                
+                // 総勤務時間を計算（分単位）
+                $total_work_minutes = $clock_out->diffInMinutes($clock_in);
+                
+                // 休憩時間の合計を計算
+                $total_break_minutes = $record->breakRecords->sum(function ($break) {
+                    $break_start = Carbon::parse($break->break_start);
+                    $break_end = Carbon::parse($break->break_end);
+                    return $break_end->diffInMinutes($break_start);
+                });
+                
+                // 実労働時間を計算
+                $actual_work_minutes = $total_work_minutes - $total_break_minutes;
+                
+                // 時間と分に変換
+                $hours = floor($actual_work_minutes / 60);
+                $minutes = $actual_work_minutes % 60;
+                
+                $record->total_work_time = sprintf('%02d:%02d', $hours, $minutes);
+                $record->total_break_time = sprintf('%02d:%02d', floor($total_break_minutes / 60), $total_break_minutes % 60);
+            } else {
+                $record->total_work_time = '';
+                $record->total_break_time = '';
+            }
+            
+            return $record;
+        });
+
+        return view('attendance_list', compact('records'));
     }
 }
