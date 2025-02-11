@@ -15,6 +15,6 @@ class BreakRecordsTableSeeder extends Seeder
      */
     public function run()
     {
-        BreakRecord::factory()->count(10)->create();
+        BreakRecord::factory()->count(50)->create();
     }
 }

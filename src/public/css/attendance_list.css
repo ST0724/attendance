@@ -3,7 +3,7 @@ body {
 }
 
 .content {
-    width: 70%;
+    width: 60%;
     margin: 50px auto;
 }
 
@@ -14,18 +14,37 @@ body {
 
 .month{
     text-align: center;
-    padding: 15px;
+    padding: 10px 20px;
     background-color: #fff;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin: 50px 0;
+    display: flex;
+    justify-content: space-between;
 }
 
-.month__input{
-    font-size: 20px;
+.month__heading{
+    display: flex;
+    justify-content: center;
+}
+
+.month__heading--icon{
+    margin-right: 10px;
+}
+
+.month__heading--title{
+    margin: 0;
+}
+
+.month__previous,
+.month__next{
+    text-decoration: none;
+    font-size: 16px;
+    color: #737373;
+    font-weight: bolder;
+    margin: auto 0;
 }
 
 .record-table{
-    padding: 10px;
     background-color: #fff;
     border-radius: 5px;
 }
@@ -34,13 +53,23 @@ body {
     width: 100%;
 }
 
+.record-table__row:first-of-type {
+    border-bottom: solid 3px #E1E1E1;
+}
+
 .record-table__row{
-    width: 100%;
     border-bottom: solid 1px #E1E1E1;
     color: #737373;
     text-align: center;
 }
 
-.black{
+th,td{
+    padding: 10px;
+    color: #737373;
+    font-weight: bolder;
+}
+
+.record-table__detail{
+    text-decoration: none;
     color: #000;
 }

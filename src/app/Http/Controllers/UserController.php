@@ -60,10 +60,20 @@ class UserController extends Controller
     }
 
 
-    public function attendanceList(){
-        $now = Carbon::now();
+    public function attendanceList($year = null, $month = null){
+        // 年月が指定されていない場合は現在の年月を使用
+        if (!$year || !$month) {
+            $now = Carbon::now();
+        } else {
+            $now = Carbon::createFromDate($year, $month, 1);
+        }
+
         $start_date = $now->copy()->startOfMonth();
         $end_date = $now->copy()->endOfMonth();
+
+        // 前月と翌月の日付を計算
+        $prev_month = $now->copy()->subMonth();
+        $next_month = $now->copy()->addMonth();
 
         $records = AttendanceRecord::with('breakRecords')
         ->whereBetween('date', [$start_date, $end_date])
@@ -92,8 +102,8 @@ class UserController extends Controller
                 $hours = floor($actual_work_minutes / 60);
                 $minutes = $actual_work_minutes % 60;
                 
-                $record->total_work_time = sprintf('%02d:%02d', $hours, $minutes);
-                $record->total_break_time = sprintf('%02d:%02d', floor($total_break_minutes / 60), $total_break_minutes % 60);
+                $record->total_work_time = sprintf('%d:%02d', $hours, $minutes);
+                $record->total_break_time = sprintf('%d:%02d', floor($total_break_minutes / 60), $total_break_minutes % 60);
             } else {
                 $record->total_work_time = '';
                 $record->total_break_time = '';
@@ -102,6 +112,12 @@ class UserController extends Controller
             return $record;
         });
 
-        return view('attendance_list', compact('records'));
+        return view('attendance_list', compact('records', 'now', 'prev_month', 'next_month'));
+    }
+
+
+    public function attendanceDetail($id){
+        $record = AttendanceRecord::with('breakRecords','user')->find($id);
+        return view('attendance_detail', compact('record'));
     }
 }
