@@ -8,7 +8,8 @@
     <div class="content">
         <h2 class="content-title">勤怠詳細</h2>
 
-        <div class="record-table">
+        <form class="record-table" action="/attendance/{{ $record['id'] }}" method="post">
+            @csrf
             <table class="record-teble__inner">
                 <tr class="record-table__row">
                     <th class="record-table__header">名前</th>
@@ -48,10 +49,13 @@
                 <tr class="record-table__row">
                     <th class="record-table__header">備考</th>
                     <td>
-
+                        <textarea name="remarks"></textarea>
                     </td>
                 </tr>
             </table>
+        </form>
+        <div class="correct">
+            <button class="correct__button">修正</button>
         </div>
     </div>
 @endsection

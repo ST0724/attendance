@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/list/{year?}/{month?}', [UserController::class, 'attendanceList'])->name('attendance.list');
 
     Route::get('/attendance/{id}', [UserController::class, 'attendanceDetail']);
+    Route::post('/attendance/{id}', [UserController::class, 'attendanceDetailRequest']);
 });
 
 Route::get('/admin/login', [AdminController::class, 'showAdminLogin']);

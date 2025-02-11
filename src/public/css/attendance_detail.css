@@ -28,7 +28,7 @@ body {
     text-align: center;
 }
 
-th{
+th {
     padding: 10px;
     color: #737373;
     font-size: 16px;
@@ -37,26 +37,56 @@ th{
 
 td,
 input,
-span {
+span,
+textarea {
     color: #000;
     font-size: 16px;
     font-weight: bolder;
     text-align: center;
 }
 
-h3{
+h3 {
     font-size: 16px;
     margin: 30px 0;
 }
 
-input{
+input {
     margin: 30px;
-    padding: 3px 0;
+    padding: 3px;
     width: 15%;
     border-radius: 5px;
     border: solid 1px #E1E1E1;
 }
 
-.record-table__date{
+@media screen and (max-width: 850px) {
+    input {
+        width: 20%;
+        font-size: 12px;
+    }
+}
+
+.record-table__date {
     margin: 30px 40px;
+}
+
+textarea {
+    margin: 10px;
+    width: 40%;
+    height: 100px;
+    border-radius: 5px;
+    border: solid 1px #E1E1E1;
+    text-align: left;
+}
+
+.correct {
+    text-align: right;
+}
+
+.correct__button {
+    padding: 10px 50px;
+    color: #FFF;
+    background-color: #000;
+    border-radius: 5px;
+    border: none;
+    font-size: 22px;
 }
