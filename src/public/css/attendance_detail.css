@@ -15,7 +15,7 @@ body {
 .record-table {
     background-color: #fff;
     border-radius: 5px;
-    margin: 100px 0;
+    margin-top: 50px;
 }
 
 .record-teble__inner {
@@ -24,11 +24,11 @@ body {
 
 .record-table__row {
     border-bottom: solid 1px #E1E1E1;
-    color: #737373;
     text-align: center;
 }
 
 th {
+    width: 40%;
     padding: 10px;
     color: #737373;
     font-size: 16px;
@@ -51,18 +51,11 @@ h3 {
 }
 
 input {
-    margin: 30px;
+    margin: 30px 0;
     padding: 3px;
-    width: 15%;
+    width: 30%;
     border-radius: 5px;
     border: solid 1px #E1E1E1;
-}
-
-@media screen and (max-width: 850px) {
-    input {
-        width: 20%;
-        font-size: 12px;
-    }
 }
 
 .record-table__date {
@@ -70,8 +63,8 @@ input {
 }
 
 textarea {
-    margin: 10px;
-    width: 40%;
+    margin: 10px 0;
+    width: 100%;
     height: 100px;
     border-radius: 5px;
     border: solid 1px #E1E1E1;
@@ -79,6 +72,7 @@ textarea {
 }
 
 .correct {
+    margin-top: 100px;
     text-align: right;
 }
 
@@ -89,4 +83,34 @@ textarea {
     border-radius: 5px;
     border: none;
     font-size: 22px;
+}
+
+td{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+}
+
+p,span {
+    color: #000;
+    font-size: 16px;
+    font-weight: bolder;
+    text-align: center;
+    margin: 30px 10px;
+    padding: 3px;
+}
+
+.correct__pending{
+    margin-top: 10px;
+    font-size: 18px;
+    color: red;
+    opacity: 0.5;
+    text-align: right;
+}
+
+@media screen and (max-width: 850px) {
+    h3,th,input,p,span,textarea,
+    .correct__pending {
+        font-size: 12px;
+    }
 }

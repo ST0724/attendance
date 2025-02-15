@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AttendanceRecord;
 use App\Models\BreakRecord;
+use App\Models\AttendanceRequest;
+use App\Models\BreakRequest;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -117,7 +119,43 @@ class UserController extends Controller
 
 
     public function attendanceDetail($id){
-        $record = AttendanceRecord::with('breakRecords','user')->find($id);
+        $record = AttendanceRecord::with(['breakRecords', 'user', 'attendanceRequests' => function ($query) {
+            $query->where('approval', false);
+        }])->find($id);
+
+        if ($record) {
+            $pending_request = $record->attendanceRequests->first();
+            
+            if ($pending_request) {
+                // approvalがfalseのAttendanceRequestが存在する場合
+                $record = AttendanceRequest::with(['breakRequests', 'user', 'attendanceRecord'])
+                    ->where('attendance_record_id', $id)
+                    ->where('approval', false)
+                    ->first();
+            }
+        }
         return view('attendance_detail', compact('record'));
+    }
+
+    public function attendanceDetailRequest(Request $request, $id){
+        $attendance = $request->only(['year', 'day', 'clock_in', 'clock_out']);
+        $full_date =  $attendance['year'] . $attendance['day'];
+        $attendance['date'] = Carbon::createFromFormat('Y年n月j日', $full_date)->format('Y-m-d');
+        $attendance['user_id'] = Auth::id();
+        $attendance['attendance_record_id'] = $id;
+        $attendance['remarks'] = $request->input('remarks');
+
+        $new_request = AttendanceRequest::create($attendance);
+        $new_request_id = $new_request->id;
+
+        $breaks = $request->input('breaks');
+        foreach ($breaks as $break) {
+            $break['user_id'] = Auth::id();
+            $break['attendance_request_id'] = $new_request_id;
+            $break['break_start'] = Carbon::parse($break['break_start'])->format('H:i');
+            $break['break_end'] = Carbon::parse($break['break_end'])->format('H:i');
+            BreakRequest::create($break);
+        }
+        return redirect("/attendance/{$id}");
     }
 }

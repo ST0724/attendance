@@ -18,4 +18,8 @@ class AttendanceRecord extends Model
     public function breakRecords(){
         return $this->hasMany(BreakRecord::class);
     }
+
+    public function attendanceRequests(){
+        return $this->hasMany(AttendanceRequest::class);
+    }
 }
