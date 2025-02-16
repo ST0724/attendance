@@ -138,9 +138,8 @@ class UserController extends Controller
     }
 
     public function attendanceDetailRequest(Request $request, $id){
-        $attendance = $request->only(['year', 'day', 'clock_in', 'clock_out']);
-        $full_date =  $attendance['year'] . $attendance['day'];
-        $attendance['date'] = Carbon::createFromFormat('Y年n月j日', $full_date)->format('Y-m-d');
+        $attendance = $request->only(['clock_in', 'clock_out']);
+        $attendance['date'] = AttendanceRecord::find($id)->date;
         $attendance['user_id'] = Auth::id();
         $attendance['attendance_record_id'] = $id;
         $attendance['remarks'] = $request->input('remarks');
@@ -157,5 +156,24 @@ class UserController extends Controller
             BreakRequest::create($break);
         }
         return redirect("/attendance/{$id}");
+    }
+
+    public function correctionRequestList(Request $request){
+        $tab = $request->tab;
+
+        if ($tab === 'pending') {
+            $records = AttendanceRequest::with(['breakRequests', 'user', 'attendanceRecord'])
+            ->where('user_id', Auth::id())
+            ->where('approval', false)
+            ->get();
+        }else if($tab === 'approved'){
+            $records = AttendanceRequest::with(['breakRequests', 'user', 'attendanceRecord'])
+            ->where('user_id', Auth::id())
+            ->where('approval', true)
+            ->get();
+        }else{
+            $records = collect();
+        }
+        return view('correction_request', compact('records'));
     }
 }

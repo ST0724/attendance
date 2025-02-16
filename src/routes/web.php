@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/attendance/{id}', [UserController::class, 'attendanceDetail']);
     Route::post('/attendance/{id}', [UserController::class, 'attendanceDetailRequest']);
+
+    Route::get('/stamp_correction_request/list', [UserController::class, 'correctionRequestList']);
 });
 
 Route::get('/admin/login', [AdminController::class, 'showAdminLogin']);
