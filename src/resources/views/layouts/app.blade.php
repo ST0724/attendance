@@ -23,8 +23,8 @@
       @if(Auth::guard('web')->check())
         <div class="header__nav">
           <button class="header__nav--button" onclick="location.href='/attendance'">勤怠</button>
-          <button class="header__nav--button" onclick="location.href='/attendance'">勤怠一覧</button>
-          <button class="header__nav--button" onclick="location.href='/attendance'">申請</button>
+          <button class="header__nav--button" onclick="location.href='/attendance/list'">勤怠一覧</button>
+          <button class="header__nav--button" onclick="location.href='/stamp_correction_request/list'">申請</button>
           <form class="logout_form" action="/logout" method="post">
             @csrf
             <button class="header__nav--button">ログアウト</button>

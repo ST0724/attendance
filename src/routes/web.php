@@ -17,6 +17,14 @@ use App\Http\Controllers\AdminController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [UserController::class, 'attendance']);
+    Route::post('/attendance', [UserController::class, 'attendanceStore']);
+    
+    Route::get('/attendance/list/{year?}/{month?}', [UserController::class, 'attendanceList'])->name('attendance.list');
+
+    Route::get('/attendance/{id}', [UserController::class, 'attendanceDetail']);
+    Route::post('/attendance/{id}', [UserController::class, 'attendanceDetailRequest']);
+
+    Route::get('/stamp_correction_request/list', [UserController::class, 'correctionRequestList']);
 });
 
 Route::get('/admin/login', [AdminController::class, 'showAdminLogin']);

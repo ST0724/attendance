@@ -19,12 +19,29 @@ Laravel環境構築
 + Laravel 8.83.8
 
 ## テストアカウント
+### 管理ログイン用
 name:管理者  
 email:admin@example.com  
 password:password  
+### 一般ログイン用
+name:テストユーザー1   
+email:test1@example.com  
+password:test_user1  
+
+name:テストユーザー2   
+email:test2@example.com  
+password:test_user2  
+
+name:テストユーザー3   
+email:test3@example.com  
+password:test_user3  
 
 ## ER図
 [ER図]
 
 ## URL
 開発環境：[http://localhost/](http://localhost/)
+
+## 備考
+php artisan users:reset-status  
+上記をphpコンテナ内で実行することで、全ての一般ユーザーのステータスを『勤務外』に変更します。
