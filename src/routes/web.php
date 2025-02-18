@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+// 一般ユーザー
 Route::middleware('auth')->group(function () {
     Route::get('/attendance', [UserController::class, 'attendance']);
     Route::post('/attendance', [UserController::class, 'attendanceStore']);
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin/login', [AdminController::class, 'showAdminLogin']);
 Route::post('/admin/login', [AdminController::class, 'adminLogin']);
     
+// 管理者
 Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/admin/attendance/list', [AdminController::class, 'adminAttendanceList']);
+    Route::get('/admin/attendance/list/{year?}/{month?}/{day?}', [AdminController::class, 'adminAttendanceList'])->name('admin.attendance.list');
+
+    Route::get('/attendance/{id}', [AdminController::class, 'adminAttendanceDetail']);
+
+    Route::get('/admin/staff/list', [AdminController::class, 'adminStaffList']);
 });

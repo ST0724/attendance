@@ -29,6 +29,12 @@
     font-size: 18px;
 }
 
+@media screen and (max-width: 850px) {
+    .header__nav--button {
+        font-size: 12px;
+    }
+}
+
 .header__logo--image{
     width: 100%;
 }
