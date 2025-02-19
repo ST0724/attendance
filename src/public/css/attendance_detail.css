@@ -113,4 +113,8 @@ p,span {
     .correct__pending {
         font-size: 12px;
     }
+
+    p,span{
+        margin: 30px 5px;
+    }
 }

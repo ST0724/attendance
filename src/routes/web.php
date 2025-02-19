@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/attendance/list/{year?}/{month?}', [UserController::class, 'attendanceList'])->name('attendance.list');
 
-    Route::get('/attendance/{id}', [UserController::class, 'attendanceDetail']);
+    Route::get('/attendance/{id}', [UserController::class, 'attendanceDetail'])->name('attendance.detail');
     Route::post('/attendance/{id}', [UserController::class, 'attendanceDetailRequest']);
 
     Route::get('/stamp_correction_request/list', [UserController::class, 'correctionRequestList']);
@@ -35,7 +35,7 @@ Route::post('/admin/login', [AdminController::class, 'adminLogin']);
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/attendance/list/{year?}/{month?}/{day?}', [AdminController::class, 'adminAttendanceList'])->name('admin.attendance.list');
 
-    Route::get('/attendance/{id}', [AdminController::class, 'adminAttendanceDetail']);
+    Route::get('/admin/attendance/{id}', [AdminController::class, 'adminAttendanceDetail'])->name('admin.attendance.detail');
 
     Route::get('/admin/staff/list', [AdminController::class, 'adminStaffList']);
 

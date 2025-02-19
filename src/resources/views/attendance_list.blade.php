@@ -37,7 +37,7 @@
                     <td>{{ $record->total_break_time }}</td>
                     <td>{{ $record->total_work_time }}</td>
                     <td>
-                        <a class="record-table__detail" href="/attendance/{{ $record['id'] }}">詳細</a>
+                        <a class="record-table__detail" href="{{ route('attendance.detail', ['id' => $record->id]) }}">詳細</a>
                     </td>
                 </tr>
                 @endforeach
