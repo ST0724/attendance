@@ -8,9 +8,12 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AttendanceRecord;
 use App\Models\BreakRecord;
+use App\Traits\CommonTrait;
 
 class AdminController extends Controller
 {
+    use CommonTrait;
+
     public function showAdminLogin(){
         return view('auth.admin_login');
     }
@@ -101,6 +104,36 @@ class AdminController extends Controller
 
 
     public function adminStaffList(){
-        return view('admin.admin_staff');
+        $users = User::all();
+        return view('admin.admin_staff', compact('users'));
+    }
+
+    public function adminAttendanceStaff($id, $year = null, $month = null){
+        $user_name = User::where('id', $id)->first()->name;
+
+        // 年月が指定されていない場合は現在の年月を使用
+        if (!$year || !$month) {
+            $now = Carbon::now();
+        } else {
+            $now = Carbon::createFromDate($year, $month, 1);
+        }
+
+        $start_date = $now->copy()->startOfMonth();
+        $end_date = $now->copy()->endOfMonth();
+
+        // 前月と翌月の日付を計算
+        $prev_month = $now->copy()->subMonth();
+        $next_month = $now->copy()->addMonth();
+
+        $records = AttendanceRecord::with('user', 'breakRecords')
+        ->whereBetween('date', [$start_date, $end_date])
+        ->where('user_id', $id)
+        ->orderBy('date')
+        ->get()
+        ->map(function ($record) {
+            return $this->getTotalWorkTime($record);
+        });
+
+        return view('admin.admin_attendance_staff', compact('user_name','records', 'now', 'prev_month', 'next_month'));
     }
 }
