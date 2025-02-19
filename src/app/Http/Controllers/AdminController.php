@@ -8,6 +8,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AttendanceRecord;
 use App\Models\BreakRecord;
+use App\Models\AttendanceRequest;
+use App\Models\BreakRequest;
+use Illuminate\Support\Facades\DB;
 use App\Traits\CommonTrait;
 
 class AdminController extends Controller
@@ -109,7 +112,7 @@ class AdminController extends Controller
     }
 
     public function adminAttendanceStaff($id, $year = null, $month = null){
-        $user_name = User::where('id', $id)->first()->name;
+        $user = User::where('id', $id)->first();
 
         // 年月が指定されていない場合は現在の年月を使用
         if (!$year || !$month) {
@@ -134,6 +137,6 @@ class AdminController extends Controller
             return $this->getTotalWorkTime($record);
         });
 
-        return view('admin.admin_attendance_staff', compact('user_name','records', 'now', 'prev_month', 'next_month'));
+        return view('admin.admin_attendance_staff', compact('user','records', 'now', 'prev_month', 'next_month'));
     }
 }

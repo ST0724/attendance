@@ -39,5 +39,5 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::get('/admin/staff/list', [AdminController::class, 'adminStaffList']);
 
-    Route::get('/admin/attendance/staff/{id}', [AdminController::class, 'adminAttendanceStaff']);
+    Route::get('/admin/attendance/staff/{id}/{year?}/{month?}', [AdminController::class, 'adminAttendanceStaff'])->name('admin.attendance.staff');
 });

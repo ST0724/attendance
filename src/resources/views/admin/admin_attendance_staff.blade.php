@@ -6,15 +6,15 @@
 
 @section('content')
     <div class="content">
-        <h2 class="content-title">{{ $user_name }}さんの勤怠</h2>
+        <h2 class="content-title">{{ $user->name }}さんの勤怠</h2>
 
         <div class="month">
-            <a class="month__previous" href="{{ route('attendance.list', ['year' => $prev_month->year, 'month' => $prev_month->month]) }}">←前月</a>
+            <a class="month__previous" href="{{ route('admin.attendance.staff', ['id' => $user->id, 'year' => $prev_month->year, 'month' => $prev_month->month]) }}">←前月</a>
             <div class="month__heading">
                 <img src="{{ asset('storage/calendar.svg') }}" alt="カレンダー" class="month__heading--icon">
                 <h3 class="month__heading--title">{{ $now->format('Y/m') }}</h3>
             </div>
-            <a class="month__next" href="{{ route('attendance.list', ['year' => $next_month->year, 'month' => $next_month->month]) }}">翌月→</a>
+            <a class="month__next" href="{{ route('admin.attendance.staff', ['id' => $user->id, 'year' => $next_month->year, 'month' => $next_month->month]) }}">翌月→</a>
         </div>
 
         <div class="record-table">
