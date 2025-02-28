@@ -20,7 +20,7 @@ class StatusTableSeeder extends Seeder
         DB::table('statuses')->insert($param);
 
         $param = [
-            'name' => '勤務中',
+            'name' => '出勤中',
         ];
         DB::table('statuses')->insert($param);
 
