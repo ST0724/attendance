@@ -37,7 +37,7 @@ email:test3@example.com
 password:test_user3  
 
 ## ER図
-[ER図]
+![ER図](ER.png)
 
 ## URL
 開発環境：[http://localhost/](http://localhost/)
