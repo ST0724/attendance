@@ -19,7 +19,8 @@ class CheckStatusTest extends TestCase
         $this->seed();
     }
 
-    // ステータス確認機能 勤務外
+    // 5 ステータス確認機能
+    // 勤務外
     public function testStatusOff()
     {
         // テスト用のユーザーを作成
