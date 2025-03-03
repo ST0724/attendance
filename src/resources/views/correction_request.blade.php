@@ -9,8 +9,13 @@
         <h2 class="content-title">申請一覧</h2>
 
         <div class="category">
-            <a href="{{ url('/stamp_correction_request/list?tab=pending') }}" class="category__title {{ request()->fullUrlIs(url('/stamp_correction_request/list?tab=pending')) ? 'active' : '' }}">承認待ち</a>
-            <a href="{{ url('/stamp_correction_request/list?tab=approved') }}" class="category__title {{ request()->fullUrlIs(url('/stamp_correction_request/list?tab=approved')) ? 'active' : '' }}">承認済み</a>
+            @if(Auth::guard('web')->check())
+                <a href="{{ url('/stamp_correction_request/list?tab=pending') }}" class="category__title {{ request()->fullUrlIs(url('/stamp_correction_request/list?tab=pending')) ? 'active' : '' }}">承認待ち</a>
+                <a href="{{ url('/stamp_correction_request/list?tab=approved') }}" class="category__title {{ request()->fullUrlIs(url('/stamp_correction_request/list?tab=approved')) ? 'active' : '' }}">承認済み</a>
+            @elseif(Auth::guard('admin')->check())
+                <a href="{{ url('/admin/stamp_correction_request/list?tab=pending') }}" class="category__title {{ request()->fullUrlIs(url('/admin/stamp_correction_request/list?tab=pending')) ? 'active' : '' }}">承認待ち</a>
+                <a href="{{ url('/admin/stamp_correction_request/list?tab=approved') }}" class="category__title {{ request()->fullUrlIs(url('/admin/stamp_correction_request/list?tab=approved')) ? 'active' : '' }}">承認済み</a>
+            @endif
         </div>
 
         <div class="record-table">
@@ -35,7 +40,11 @@
                     <td>{{ $record->remarks }}</td>
                     <td>{{ \Carbon\Carbon::parse($record->created_at)->format('Y/m/d') }}</td>
                     <td>
-                        <a class="record-table__detail" href="/attendance/{{ $record['attendance_record_id'] }}">詳細</a>
+                        @if(Auth::guard('web')->check())
+                            <a class="record-table__detail" href="/attendance/{{ $record['attendance_record_id'] }}">詳細</a>
+                        @elseif(Auth::guard('admin')->check())
+                            <a class="record-table__detail" href="/admin/stamp_correction_request/approve/{{ $record['id'] }}">詳細</a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
