@@ -85,6 +85,15 @@ textarea {
     font-size: 22px;
 }
 
+.correct__button--approved {
+    padding: 10px 50px;
+    color: #FFF;
+    background-color: #696969;
+    border-radius: 5px;
+    border: none;
+    font-size: 22px;
+}
+
 td {
     width: 60%;
     display: flex;

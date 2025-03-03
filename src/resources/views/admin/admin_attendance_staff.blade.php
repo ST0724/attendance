@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin_attendance_list.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/admin_attendance_staff.css') }}" />
 @endsection
 
 @section('content')
     <div class="content">
-        <h2 class="content-title">{{ $now->format('Y/m/d') }}の勤怠</h2>
+        <h2 class="content-title">{{ $user->name }}さんの勤怠</h2>
 
-        <div class="day">
-            <a class="day__previous" href="{{ route('admin.attendance.list', ['year' => $prev_day->year, 'month' => $prev_day->month, 'day' => $prev_day->day]) }}">←前日</a>
-            <div class="day__heading">
-                <img src="{{ asset('storage/calendar.svg') }}" alt="カレンダー" class="day__heading--icon">
-                <h3 class="day__heading--title">{{ $now->format('Y/m/d') }}</h3>
+        <div class="month">
+            <a class="month__previous" href="{{ route('admin.attendance.staff', ['id' => $user->id, 'year' => $prev_month->year, 'month' => $prev_month->month]) }}">←前月</a>
+            <div class="month__heading">
+                <img src="{{ asset('storage/calendar.svg') }}" alt="カレンダー" class="month__heading--icon">
+                <h3 class="month__heading--title">{{ $now->format('Y/m') }}</h3>
             </div>
-            <a class="day__next" href="{{ route('admin.attendance.list', ['year' => $next_day->year, 'month' => $next_day->month, 'day' => $next_day->day]) }}">翌日→</a>
+            <a class="month__next" href="{{ route('admin.attendance.staff', ['id' => $user->id, 'year' => $next_month->year, 'month' => $next_month->month]) }}">翌月→</a>
         </div>
 
         <div class="record-table">
             <table class="record-teble__inner">
                 <tr class="record-table__row">
-                    <th class="record-table__header">名前</th>
+                    <th class="record-table__header">日付</th>
                     <th class="record-table__header">出勤</th>
                     <th class="record-table__header">退勤</th>
                     <th class="record-table__header">休憩</th>
@@ -29,7 +29,9 @@
                 </tr>
                 @foreach($records as $record)
                 <tr class="record-table__row">
-                    <td>{{ $record->user->name }}</td>
+                    <td>
+                        {{ \Carbon\Carbon::parse($record->date)->format('m/d'). \Carbon\Carbon::parse($record->date)->isoFormat('(ddd)') }}
+                    </td>
                     <td>{{ $record->clock_in ? Carbon\Carbon::parse($record->clock_in)->format('H:i') : '' }}</td>
                     <td>{{ $record->clock_out ? Carbon\Carbon::parse($record->clock_out)->format('H:i') : '' }}</td>
                     <td>{{ $record->total_break_time }}</td>
@@ -40,6 +42,10 @@
                 </tr>
                 @endforeach
             </table>
+        </div>
+
+        <div class="button">
+            <button class="button__submit">CSV出力</button>
         </div>
     </div>
 @endsection

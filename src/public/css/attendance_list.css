@@ -7,12 +7,12 @@ body {
     margin: 50px auto;
 }
 
-.content-title{
+.content-title {
     border-left: solid 8px #000;
     padding-left: 10px;
 }
 
-.month{
+.month {
     text-align: center;
     padding: 10px 20px;
     background-color: #fff;
@@ -22,21 +22,21 @@ body {
     justify-content: space-between;
 }
 
-.month__heading{
+.month__heading {
     display: flex;
     justify-content: center;
 }
 
-.month__heading--icon{
+.month__heading--icon {
     margin-right: 10px;
 }
 
-.month__heading--title{
+.month__heading--title {
     margin: 0;
 }
 
 .month__previous,
-.month__next{
+.month__next {
     text-decoration: none;
     font-size: 16px;
     color: #737373;
@@ -44,7 +44,7 @@ body {
     margin: auto 0;
 }
 
-.record-table{
+.record-table {
     background-color: #fff;
     border-radius: 5px;
 }
@@ -57,19 +57,40 @@ body {
     border-bottom: solid 3px #E1E1E1;
 }
 
-.record-table__row{
+.record-table__row {
     border-bottom: solid 1px #E1E1E1;
     color: #737373;
     text-align: center;
 }
 
-th,td{
+th,
+td {
     padding: 10px;
     color: #737373;
     font-weight: bolder;
 }
 
-.record-table__detail{
+.record-table__detail {
     text-decoration: none;
     color: #000;
+}
+
+@media screen and (max-width: 850px) {
+
+    th,
+    td,
+    .category__title {
+        font-size: 12px;
+        max-width: 100px;
+    }
+
+    .content {
+        width: 70%;
+        margin: 30px auto;
+    }
+
+    .category,
+    .record-table {
+        margin-top: 30px;
+    }
 }
