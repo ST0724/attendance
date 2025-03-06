@@ -83,14 +83,13 @@
                 </table>
             </div>
 
-                @if($record instanceof \App\Models\AttendanceRecord)
-                    <div class="correct">
-                        <button class="correct__button" type="submit">修正</button>
-                    </div>
-                @elseif($record instanceof \App\Models\AttendanceRequest)
-                        <p class="correct__pending">*承認待ちのため修正はできません。</p>
-                @endif
-            </div>
+            @if($record instanceof \App\Models\AttendanceRecord)
+                <div class="correct">
+                    <button class="correct__button" type="submit">修正</button>
+                </div>
+            @elseif($record instanceof \App\Models\AttendanceRequest)
+                <p class="correct__pending">*承認待ちのため修正はできません。</p>
+            @endif
         </form>
     </div>
 @endsection

@@ -112,7 +112,9 @@ class UserController extends Controller
         return view('attendance_detail', compact('record'));
     }
 
-    public function attendanceDetailRequest(Request $request, $id){
+    
+    public function attendanceDetailRequest(Request $request, $id)
+    {
         $attendance = $request->only(['clock_in', 'clock_out']);
         $attendance['date'] = AttendanceRecord::find($id)->date;
         $attendance['user_id'] = Auth::id();
@@ -123,13 +125,20 @@ class UserController extends Controller
         $new_request_id = $new_request->id;
 
         $breaks = $request->input('breaks');
-        foreach ($breaks as $break) {
-            $break['user_id'] = Auth::id();
-            $break['attendance_request_id'] = $new_request_id;
-            $break['break_start'] = Carbon::parse($break['break_start'])->format('H:i');
-            $break['break_end'] = Carbon::parse($break['break_end'])->format('H:i');
-            BreakRequest::create($break);
+        
+        // breaksが入力された場合のみ処理を行う
+        if ($breaks && is_array($breaks)) {
+            foreach ($breaks as $break) {
+                if (isset($break['break_start']) && isset($break['break_end'])) {
+                    $break['user_id'] = Auth::id();
+                    $break['attendance_request_id'] = $new_request_id;
+                    $break['break_start'] = Carbon::parse($break['break_start'])->format('H:i');
+                    $break['break_end'] = Carbon::parse($break['break_end'])->format('H:i');
+                    BreakRequest::create($break);
+                }
+            }
         }
+
         return redirect("/attendance/{$id}");
     }
 

@@ -59,22 +59,31 @@ class AdminController extends Controller
 
 
     public function adminAttendanceDetail($id){
-        $record = AttendanceRecord::with(['breakRecords', 'user', 'attendanceRequests' => function ($query) {
-            $query->where('approval', false);
-        }])->find($id);
+        $record = AttendanceRecord::with(['breakRecords', 'user' ])->find($id);
+        return view('admin.admin_attendance_detail', compact('record'));
+    }
 
-        if ($record) {
-            $pending_request = $record->attendanceRequests->first();
-            
-            if ($pending_request) {
-                // approvalがfalseのAttendanceRequestが存在する場合
-                $record = AttendanceRequest::with(['breakRequests', 'user', 'attendanceRecord'])
-                    ->where('attendance_record_id', $id)
-                    ->where('approval', false)
-                    ->first();
+
+    public function adminAttendanceDetailUpdate(Request $request, $id){
+        $attendance = $request->only(['clock_in', 'clock_out']);
+        AttendanceRecord::find($id)->update([
+            'clock_in' => $attendance['clock_in'],
+            'clock_out' => $attendance['clock_out'],
+        ]);
+
+        $breaks = $request->input('breaks');
+        // breaksが入力された場合のみ処理を行う
+        if ($breaks && is_array($breaks)) {
+            foreach ($breaks as $break) {
+                if (isset($break['break_start']) && isset($break['break_end'])) {
+                    BreakRecord::find($break['break_record_id'])->update([
+                        'break_start' => $break['break_start'],
+                        'break_end' => $break['break_end'],
+                    ]);
+                }
             }
         }
-        return view('attendance_detail', compact('record'));
+        return redirect("/admin/attendance/{$id}");
     }
 
 
@@ -82,6 +91,7 @@ class AdminController extends Controller
         $users = User::all();
         return view('admin.admin_staff', compact('users'));
     }
+
 
     public function adminAttendanceStaff($id, $year = null, $month = null){
         $user = User::where('id', $id)->first();
@@ -139,14 +149,11 @@ class AdminController extends Controller
         return view('admin.approval', compact('record'));
     }
 
+
     public function adminApprovalUpdate(Request $request, $request_id){
         $attendance_request = AttendanceRequest::with(['breakRequests', 'user', 'attendanceRecord'])
             ->where('id', $request_id)
             ->first();
-
-        // $attendnce_record = AttendanceRecord::with('user', 'breakRecords')
-        //     ->where('id', $attendance_request['attendance_record_id'])
-        //     ->first();
         
         AttendanceRecord::find($attendance_request['attendance_record_id'])->update([
             'clock_in' => $attendance_request->clock_in,
