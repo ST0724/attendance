@@ -12,6 +12,7 @@ use App\Models\AttendanceRequest;
 use App\Models\BreakRequest;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CommonTrait;
+use App\Http\Requests\DetailRequest;
 
 class UserController extends Controller
 {
@@ -113,7 +114,7 @@ class UserController extends Controller
     }
 
     
-    public function attendanceDetailRequest(Request $request, $id)
+    public function attendanceDetailRequest(DetailRequest $request, $id)
     {
         $attendance = $request->only(['clock_in', 'clock_out']);
         $attendance['date'] = AttendanceRecord::find($id)->date;

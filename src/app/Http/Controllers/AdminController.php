@@ -12,6 +12,7 @@ use App\Models\AttendanceRequest;
 use App\Models\BreakRequest;
 use Illuminate\Support\Facades\DB;
 use App\Traits\CommonTrait;
+use App\Http\Requests\AdminDetailRequest;
 
 class AdminController extends Controller
 {
@@ -64,7 +65,7 @@ class AdminController extends Controller
     }
 
 
-    public function adminAttendanceDetailUpdate(Request $request, $id){
+    public function adminAttendanceDetailUpdate(AdminDetailRequest $request, $id){
         $attendance = $request->only(['clock_in', 'clock_out']);
         AttendanceRecord::find($id)->update([
             'clock_in' => $attendance['clock_in'],
