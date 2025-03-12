@@ -22,7 +22,11 @@ class GetDateAndTimeTest extends TestCase
         $this->seed();
     }
 
-    // 4 日時取得機能
+    /**
+     * 4 日時取得機能
+     *
+     * @return void
+     */
     public function testDisplayedDateTimeMatchesCurrentDateTime()
     {
         // ログイン処理

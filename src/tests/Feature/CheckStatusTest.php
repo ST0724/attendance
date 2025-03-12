@@ -19,8 +19,12 @@ class CheckStatusTest extends TestCase
         $this->seed();
     }
 
-    // 5 ステータス確認機能
-    // 勤務外
+    /**
+     * 5 ステータス確認機能
+     * 勤務外
+     *
+     * @return void
+     */
     public function testStatusOff()
     {
         // テスト用のユーザーを作成
@@ -58,7 +62,12 @@ class CheckStatusTest extends TestCase
     }
 
 
-    // ステータス確認機能 出勤中
+    /**
+     * 5 ステータス確認機能
+     * 出勤中
+     *
+     * @return void
+     */
     public function testStatusWork()
     {
         // テスト用のユーザーを作成
@@ -96,7 +105,12 @@ class CheckStatusTest extends TestCase
     }
 
 
-    // ステータス確認機能 休憩中
+    /**
+     * 5 ステータス確認機能
+     * 休憩中
+     *
+     * @return void
+     */
     public function testStatusBreak()
     {
         // テスト用のユーザーを作成
@@ -134,7 +148,12 @@ class CheckStatusTest extends TestCase
     }
 
 
-    // ステータス確認機能 退勤済
+    /**
+     * 5 ステータス確認機能
+     * 退勤済
+     *
+     * @return void
+     */
     public function testStatusFinish()
     {
         // テスト用のユーザーを作成
