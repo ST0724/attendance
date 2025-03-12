@@ -72,13 +72,8 @@ class AttendanceButtonTest extends TestCase
 
     protected function tearDown(): void
     {
-        // データベースをリフレッシュ
         $this->artisan('migrate:refresh');
-
-        // キャッシュをクリア
         $this->artisan('cache:clear');
-
-        // 親クラスのtearDownを呼び出す
         parent::tearDown();
     }
 }
