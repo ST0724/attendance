@@ -35,6 +35,16 @@
                                 <input type="text" class="record-table__attendance" name="clock_out" 
                                     value="{{ \Carbon\Carbon::parse($record->clock_out)->format('H:i') }}">
                             </td>
+                            <td class="error">
+                                @error('clock_in')
+                                    {{ $message }}
+                                @enderror
+                            </td>
+                            <td class="error">
+                                @error('clock_out')
+                                    {{ $message }}
+                                @enderror
+                            </td>
                         </tr>
                         @foreach($record->breakRecords as $index => $breakRecord)
                             <tr class="record-table__row">
@@ -45,12 +55,27 @@
                                     <span>～</span>
                                     <input type="text" class="record-table__break" name="breaks[{{ $index }}][break_end]" value="{{ \Carbon\Carbon::parse($breakRecord->break_end)->format('H:i') }}">
                                 </td>
+                                <td class="error">
+                                    @error("breaks.{$index}.break_start")
+                                        {{ $message }}
+                                    @enderror
+                                </td>
+                                <td class="error">
+                                    @error("breaks.{$index}.break_end")
+                                        {{ $message }}
+                                    @enderror
+                                </td>
                             </tr>
                         @endforeach
                         <tr class="record-table__row">
                             <th class="record-table__header">備考</th>
                             <td>
                                 <textarea name="remarks"></textarea>
+                            </td>
+                            <td class="error">
+                                @error('remarks')
+                                        {{ $message }}
+                                    @enderror
                             </td>
                         </tr>
                     @elseif($record instanceof \App\Models\AttendanceRequest)
@@ -83,14 +108,13 @@
                 </table>
             </div>
 
-                @if($record instanceof \App\Models\AttendanceRecord)
-                    <div class="correct">
-                        <button class="correct__button" type="submit">修正</button>
-                    </div>
-                @elseif($record instanceof \App\Models\AttendanceRequest)
-                        <p class="correct__pending">*承認待ちのため修正はできません。</p>
-                @endif
-            </div>
+            @if($record instanceof \App\Models\AttendanceRecord)
+                <div class="correct">
+                    <button class="correct__button" type="submit">修正</button>
+                </div>
+            @elseif($record instanceof \App\Models\AttendanceRequest)
+                <p class="correct__pending">*承認待ちのため修正はできません。</p>
+            @endif
         </form>
     </div>
 @endsection
