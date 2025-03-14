@@ -15,6 +15,10 @@ Laravel環境構築
 7. php artisan db:seed
 8. php artisan storage:link
 
+PHPUnit環境構築
+1. MySQLコンテナからrootにログイン
+2. CREATE DATABASE demo_test;
+
 ## 使用技術(実行環境)
 + Laravel 8.83.8
 
